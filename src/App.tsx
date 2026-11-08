@@ -12,6 +12,7 @@ import { AiSeoTab } from './components/AiSeoTab';
 import { ApiConfigTab } from './components/ApiConfigTab';
 import { ActivityLogsTab } from './components/ActivityLogsTab';
 import { ToastContainer, ToastMessage } from './components/Toast';
+import { OfflineIndicator } from './components/OfflineIndicator';
 import { BoostedSlot, QueuedProduct, ParsedProduct, ShopeeCredentials, ActivityLog } from './types/shopee';
 
 export default function App() {
@@ -440,8 +441,11 @@ export default function App() {
         isMinuteSyncing={isMinuteSyncing}
       />
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 md:py-8">
+      {/* PWA Offline Resilience Indicator */}
+      <OfflineIndicator />
+
+      {/* Main Container (Padded for mobile bottom nav bar) */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-2.5 sm:px-4 py-3 md:py-6 pb-20 md:pb-8">
         {activeTab === 'paste' && (
           <LinkParserTab
             onBoostNow={handleBoostNow}
@@ -499,8 +503,8 @@ export default function App() {
         )}
       </main>
 
-      {/* Footer with BangRoy Boost Shopee Branding */}
-      <footer className="bg-slate-900/60 border-t border-slate-800/80 py-6 text-xs text-slate-500 mt-12">
+      {/* Footer with BangRoy Boost Shopee Branding (Desktop only to keep mobile 1 screen clean) */}
+      <footer className="hidden md:block bg-slate-900/60 border-t border-slate-800/80 py-5 text-xs text-slate-500 mt-6">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-orange-500" />
@@ -510,7 +514,7 @@ export default function App() {
           </div>
 
           <div className="text-center md:text-right text-[11px] text-slate-500">
-            Enkripsi HMAC-SHA256 • Peringkat #1 Paling Atas • Shopee Open Platform API v2
+            Enkripsi HMAC-SHA256 • Peringkat #1 Paling Atas • PWA Installable • Shopee Open Platform API v2
           </div>
         </div>
       </footer>

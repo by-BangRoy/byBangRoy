@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import http from 'http';
 import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -60,6 +61,7 @@ let queuedItems: Array<{
 
 async function startServer() {
   const app = express();
+  const server = http.createServer(app);
   const PORT = process.env.PORT || 3000;
   const isProd = process.env.NODE_ENV === 'production';
 
@@ -560,8 +562,12 @@ Berikan respon JSON murni sesuai format berikut:
 
   // Vite middleware in dev or express static in prod
   if (!isProd) {
+    const isHmrDisabled = process.env.DISABLE_HMR === 'true';
     const vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        hmr: isHmrDisabled ? false : { server },
+      },
       appType: 'spa',
     });
     app.use(vite.middlewares);
@@ -572,7 +578,7 @@ Berikan respon JSON murni sesuai format berikut:
     });
   }
 
-  app.listen(Number(PORT), '0.0.0.0', () => {
+  server.listen(Number(PORT), '0.0.0.0', () => {
     console.log(`Shopee Boost Server running on http://0.0.0.0:${PORT}`);
   });
 }
