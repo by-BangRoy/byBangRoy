@@ -1,0 +1,8 @@
+{
+  "name": "BangRoy Boost Shopee",
+  "description": "Tool otomatisasi sundul produk Shopee real-time resmi via API Shopee Open Platform, auto-sinkronisasi server setiap menit, link parser instan, dan optimasi posisi pencarian paling atas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
